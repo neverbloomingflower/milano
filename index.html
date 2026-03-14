@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Espresso Cafe & Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+Georgian:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --cream:#f5efe6;--warm-white:#faf7f2;--espresso:#2c1a0e;--brown:#5c3d2e;
+  --caramel:#c4874a;--gold:#d4a05a;--light-brown:#8b6347;--text:#2c1a0e;
+  --muted:#7a5c46;--border:rgba(196,135,74,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--warm-white);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+body.lang-ka{font-family:'Noto Serif Georgian',serif;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(250,247,242,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-left{display:flex;align-items:center;gap:18px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--espresso);letter-spacing:.04em;text-decoration:none;}
+.social-icons{display:flex;gap:10px;align-items:center;}
+.social-icons a{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);color:var(--brown);transition:all .25s;text-decoration:none;}
+.social-icons a:hover{background:var(--caramel);border-color:var(--caramel);color:#fff;transform:scale(1.1);}
+.social-icons svg{width:15px;height:15px;fill:currentColor;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brown);text-decoration:none;position:relative;transition:color .2s;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--caramel);transform:scaleX(0);transition:transform .25s;}
+.nav-links a:hover{color:var(--caramel);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+.lang-btn{padding:5px 14px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:none;color:var(--muted);cursor:pointer;transition:all .2s;font-family:inherit;}
+.lang-btn.active{background:var(--caramel);color:#fff;}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(160deg,#f5efe6 0%,#faf7f2 50%,#f0e6d8 100%);}
+.hero-bg{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(196,135,74,.08) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(92,61,46,.06) 0%,transparent 50%);pointer-events:none;}
+.hero-deco{position:absolute;font-size:20rem;color:rgba(196,135,74,.04);font-family:'Playfair Display',serif;font-weight:700;pointer-events:none;user-select:none;line-height:1;}
+.hero-deco.tl{top:-40px;left:-20px;}
+.hero-deco.br{bottom:-60px;right:-10px;}
+.hero-content{position:relative;z-index:2;padding:0 24px;animation:fadeUp 1.1s cubic-bezier(.16,1,.3,1) both;}
+.hero-eyebrow{font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;color:var(--caramel);margin-bottom:20px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:700;color:var(--espresso);line-height:1.05;margin-bottom:12px;}
+.hero-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--caramel);margin-bottom:28px;}
+.hero-tag{font-size:1rem;color:var(--muted);letter-spacing:.04em;margin-bottom:48px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.8;}
+.hero-cta{display:inline-flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{padding:14px 36px;background:var(--espresso);color:var(--cream);font-family:inherit;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;display:inline-block;}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--caramel);transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-primary span{position:relative;z-index:1;}
+.btn-outline{padding:13px 36px;background:transparent;color:var(--espresso);font-family:inherit;font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid var(--espresso);cursor:pointer;transition:all .25s;display:inline-block;}
+.btn-outline:hover{background:var(--espresso);color:var(--cream);}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;animation:bounce 2s ease-in-out infinite;}
+.hero-scroll svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;}
+
+/* SECTIONS */
+section{padding:110px 0;}
+section:nth-child(even){background:var(--cream);}
+.container{max-width:1100px;margin:0 auto;padding:0 48px;}
+.container-wide{max-width:1300px;margin:0 auto;padding:0 48px;}
+.sec-header{text-align:center;margin-bottom:64px;}
+.sec-eye{font-size:.73rem;letter-spacing:.25em;text-transform:uppercase;color:var(--caramel);margin-bottom:14px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;color:var(--espresso);line-height:1.15;}
+.sec-line{width:60px;height:1px;background:var(--caramel);margin:18px auto;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.about-card{background:var(--espresso);border-radius:2px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.about-badge{position:absolute;bottom:-18px;right:-18px;width:110px;height:110px;background:var(--caramel);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Playfair Display',serif;color:#fff;text-align:center;box-shadow:0 8px 32px rgba(196,135,74,.4);}
+.about-badge .big{font-size:1.6rem;font-weight:700;line-height:1;}
+.about-badge .sm{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9;margin-top:2px;}
+.about-text h2{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:600;color:var(--espresso);margin-bottom:18px;line-height:1.2;}
+.about-text p{font-size:1.02rem;color:var(--muted);line-height:1.85;margin-bottom:18px;}
+.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;}
+.feat{display:flex;gap:12px;align-items:flex-start;}
+.feat-icon{width:34px;height:34px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--caramel);flex-shrink:0;font-size:.95rem;}
+.feat-txt{font-size:.88rem;color:var(--brown);line-height:1.5;}
+.feat-txt strong{display:block;color:var(--espresso);font-weight:600;margin-bottom:2px;}
+
+/* MENU */
+.menu-tab-row{text-align:center;margin-bottom:52px;}
+.menu-tabs{display:inline-flex;border:1px solid var(--border);overflow:hidden;border-radius:2px;}
+.menu-tab{padding:11px 26px;background:transparent;border:none;border-right:1px solid var(--border);font-family:inherit;font-size:.83rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .2s;}
+.menu-tab:last-child{border-right:none;}
+.menu-tab.active{background:var(--espresso);color:var(--cream);}
+.menu-panel{display:none;}
+.menu-panel.active{display:block;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px;}
+.menu-item{background:var(--warm-white);border:1px solid var(--border);padding:22px;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+.menu-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,135,74,.04),transparent);opacity:0;transition:opacity .3s;}
+.menu-item:hover{transform:translateY(-5px) scale(1.015);box-shadow:0 18px 48px rgba(44,26,14,.12);border-color:var(--caramel);}
+.menu-item:hover::before{opacity:1;}
+.item-vis{height:110px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.item-3d{transition:transform .45s cubic-bezier(.34,1.56,.64,1);}
+.menu-item:hover .item-3d{transform:scale(1.2) rotate(-4deg);}
+.item-name{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:600;color:var(--espresso);margin-bottom:5px;}
+.item-desc{font-size:.86rem;color:var(--muted);line-height:1.6;margin-bottom:11px;}
+.item-price{font-family:'Playfair Display',serif;font-size:1.08rem;color:var(--caramel);font-weight:600;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(44,26,14,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--warm-white);width:min(500px,92vw);padding:52px 44px;position:relative;transform:scale(.85) translateY(20px);transition:transform .4s cubic-bezier(.34,1.56,.64,1);text-align:center;}
+.modal-overlay.open .modal-box{transform:scale(1) translateY(0);}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.5rem;line-height:1;transition:color .2s;}
+.modal-close:hover{color:var(--espresso);}
+.modal-vis{height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+.modal-vis svg{filter:drop-shadow(0 18px 36px rgba(44,26,14,.2));animation:floatItem 3s ease-in-out infinite;}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--espresso);margin-bottom:10px;}
+.modal-desc{font-size:.98rem;color:var(--muted);line-height:1.75;margin-bottom:18px;}
+.modal-price{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--caramel);}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
+.contact-list{display:flex;flex-direction:column;gap:28px;}
+.c-item{display:flex;gap:18px;align-items:flex-start;}
+.c-icon{width:46px;height:46px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--caramel);flex-shrink:0;font-size:1.15rem;}
+.c-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--caramel);margin-bottom:5px;}
+.c-value{font-size:1rem;color:var(--espresso);line-height:1.65;}
+.c-value a{color:inherit;text-decoration:none;}
+.c-value a:hover{color:var(--caramel);}
+.contact-form h3{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--espresso);margin-bottom:22px;}
+.fg{margin-bottom:18px;}
+.fg label{display:block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.fg input,.fg textarea{width:100%;padding:11px 14px;background:transparent;border:1px solid var(--border);color:var(--espresso);font-family:inherit;font-size:.95rem;transition:border-color .2s;outline:none;resize:none;}
+.fg input:focus,.fg textarea:focus{border-color:var(--caramel);}
+.fg textarea{min-height:90px;}
+
+/* FOOTER */
+footer{background:var(--espresso);color:rgba(245,239,230,.6);padding:52px 0 28px;text-align:center;}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--cream);margin-bottom:6px;}
+.foot-tag{font-style:italic;font-size:.92rem;color:var(--gold);margin-bottom:28px;}
+.foot-soc{display:flex;gap:14px;justify-content:center;margin-bottom:28px;}
+.foot-soc a{width:38px;height:38px;border:1px solid rgba(245,239,230,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(245,239,230,.6);text-decoration:none;transition:all .25s;}
+.foot-soc a:hover{background:var(--caramel);border-color:var(--caramel);color:#fff;}
+.foot-soc svg{width:15px;height:15px;fill:currentColor;}
+.foot-copy{font-size:.78rem;opacity:.4;letter-spacing:.04em;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+@keyframes floatItem{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-12px) rotate(2deg);}}
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .container,.container-wide{padding:0 22px;}
+  section{padding:72px 0;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:44px;}
+  .menu-tab{padding:9px 14px;font-size:.75rem;}
+  .modal-box{padding:36px 24px;}
+}
+body.lang-ka .nav-links a,body.lang-ka .sec-eye,body.lang-ka .lang-btn,body.lang-ka .menu-tab,body.lang-ka .item-desc,body.lang-ka .c-label,body.lang-ka .fg label{font-family:'Noto Serif Georgian',serif;letter-spacing:.02em;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="#hero" class="nav-logo">Espresso Cafe & Shop</a>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/espressocafeandshop?locale=ka_GE" target="_blank" rel="noopener" title="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/milanesebistrovekua/" target="_blank" rel="noopener" title="Instagram">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" style="fill:var(--warm-white)"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="var(--warm-white)" stroke-width="2" stroke-linecap="round" style="fill:none"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#about" data-en="About" data-ka="ჩვენს შესახებ">About</a>
+    <a href="#menu" data-en="Menu" data-ka="მენიუ">Menu</a>
+    <a href="#contact" data-en="Contact" data-ka="კონტაქტი">Contact</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ka')">ქა</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco tl">☕</div>
+  <div class="hero-deco br">✦</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-en="Tbilisi · Georgia" data-ka="თბილისი · საქართველო">Tbilisi · Georgia</p>
+    <h1 class="hero-title">Espresso<br/>Cafe & Shop</h1>
+    <p class="hero-sub" data-en="Milanese Bistro Vekua" data-ka="მილანური ბისტრო ვეკუა">Milanese Bistro Vekua</p>
+    <p class="hero-tag" data-en="Where every cup tells a story. Fine coffee, warm atmosphere, and the spirit of Milan in the heart of Tbilisi." data-ka="სადაც თითოეული ფინჯანი ყვება ისტორიას. შესანიშნავი ყავა, თბილი ატმოსფერო და მილანის სული თბილისის გულში.">
+      Where every cup tells a story. Fine coffee, warm atmosphere, and the spirit of Milan in the heart of Tbilisi.
+    </p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn-primary"><span data-en="View Menu" data-ka="მენიუ">View Menu</span></a>
+      <a href="#contact" class="btn-outline" data-en="Find Us" data-ka="გვიპოვე">Find Us</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span data-en="Scroll" data-ka="გადაახვიე">Scroll</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid fade-in">
+      <div>
+        <div class="about-card">
+          <svg width="210" height="210" viewBox="0 0 200 200">
+            <rect x="30" y="60" width="140" height="110" rx="10" fill="#1a0f07"/>
+            <rect x="35" y="65" width="130" height="100" rx="8" fill="#2c1a0e"/>
+            <rect x="50" y="75" width="100" height="70" rx="6" fill="#1a0f07"/>
+            <line x1="155" y1="80" x2="170" y2="110" stroke="#c4874a" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="170" cy="114" r="5" fill="#c4874a"/>
+            <rect x="75" y="130" width="50" height="10" rx="5" fill="#c4874a"/>
+            <rect x="90" y="140" width="20" height="20" rx="4" fill="#5c3d2e"/>
+            <rect x="45" y="155" width="110" height="10" rx="3" fill="#3d2518"/>
+            <circle cx="75" cy="100" r="8" fill="#c4874a" opacity=".9"/>
+            <circle cx="100" cy="100" r="8" fill="#d4a05a" opacity=".9"/>
+            <circle cx="125" cy="100" r="8" fill="#c4874a" opacity=".9"/>
+            <rect x="70" y="80" width="60" height="14" rx="3" fill="#0a0604"/>
+            <text x="100" y="91" text-anchor="middle" fill="#c4874a" font-size="6" font-family="monospace">ESPRESSO</text>
+            <path d="M85 58 Q88 50 85 42" stroke="rgba(245,239,230,.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M100 55 Q103 45 100 35" stroke="rgba(245,239,230,.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M115 58 Q118 50 115 42" stroke="rgba(245,239,230,.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M85 168 Q85 180 100 180 Q115 180 115 168 Z" fill="#f5efe6"/>
+            <rect x="85" y="162" width="30" height="6" rx="1" fill="#f5efe6"/>
+            <path d="M115 166 Q122 166 122 172 Q122 178 115 178" stroke="#c4a87a" stroke-width="2" fill="none"/>
+            <ellipse cx="100" cy="163" rx="14" ry="3" fill="#5c3d2e"/>
+          </svg>
+          <div class="about-badge">
+            <span class="big">☕</span>
+            <span class="sm" data-en="Est. 2018" data-ka="2018">Est. 2018</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="sec-eye" data-en="Our Story" data-ka="ჩვენი ისტორია">Our Story</p>
+        <h2 data-en="A Milanese Heart in Tbilisi" data-ka="მილანური გული თბილისში">A Milanese Heart in Tbilisi</h2>
+        <p data-en="Espresso Cafe & Shop is more than a coffee house — it's a warm corner of Milan nestled in the vibrant streets of Tbilisi. We opened with a single passion: to share the rich, artisanal coffee culture of Northern Italy with Georgia." data-ka="Espresso Cafe & Shop ყავის სახლზე მეტია — ეს მილანის თბილი კუთხეა, თბილისის ცოცხალ ქუჩებში. ჩვენ კარი გავხსენით ერთი ვნებით: ჩრდილოეთ იტალიის ხელოსნური ყავის კულტურა გაგვეზიარებინა საქართველოსთვის.">Espresso Cafe & Shop is more than a coffee house — it's a warm corner of Milan nestled in the vibrant streets of Tbilisi. We opened with a single passion: to share the rich, artisanal coffee culture of Northern Italy with Georgia.</p>
+        <p data-en="Every bean is carefully sourced, every cup crafted with precision and love. Whether you're here for a quick espresso or a long afternoon with friends, we make every moment count." data-ka="თითოეული მარცვალი ყურადღებით არის შერჩეული, თითოეული ფინჯანი სიყვარულით მომზადებული. სწრაფი ესპრესოსთვის მოხვიდე თუ გრძელი შუადღისთვის — ყოველ მომენტს ვაქცევთ სპეციალურად.">Every bean is carefully sourced, every cup crafted with precision and love. Whether you're here for a quick espresso or a long afternoon with friends, we make every moment count.</p>
+        <div class="about-feats">
+          <div class="feat"><div class="feat-icon">☕</div><div class="feat-txt"><strong data-en="Specialty Coffee" data-ka="სპეციალური ყავა">Specialty Coffee</strong><span data-en="Single origin beans" data-ka="ერთი წარმოშობის მარცვლები">Single origin beans</span></div></div>
+          <div class="feat"><div class="feat-icon">🍽</div><div class="feat-txt"><strong data-en="Italian Kitchen" data-ka="იტალიური სამზარეულო">Italian Kitchen</strong><span data-en="Authentic Milanese recipes" data-ka="ნამდვილი მილანური რეცეპტები">Authentic Milanese recipes</span></div></div>
+          <div class="feat"><div class="feat-icon">🛍</div><div class="feat-txt"><strong data-en="Coffee Shop" data-ka="ყავის მაღაზია">Coffee Shop</strong><span data-en="Take home our finest blends" data-ka="შინ წაიღეთ ჩვენი ნაზავები">Take home our finest blends</span></div></div>
+          <div class="feat"><div class="feat-icon">✦</div><div class="feat-txt"><strong data-en="Warm Atmosphere" data-ka="თბილი ატმოსფერო">Warm Atmosphere</strong><span data-en="Your home away from home" data-ka="სახლი სახლის გარეთ">Your home away from home</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container-wide">
+    <div class="sec-header fade-in">
+      <p class="sec-eye" data-en="What We Offer" data-ka="ჩვენი შეთავაზება">What We Offer</p>
+      <h2 class="sec-title" data-en="Our Menu" data-ka="ჩვენი მენიუ">Our Menu</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="menu-tab-row fade-in">
+      <div class="menu-tabs">
+        <button class="menu-tab active" onclick="showTab('coffee',this)" data-en="Coffee" data-ka="ყავა">Coffee</button>
+        <button class="menu-tab" onclick="showTab('drinks',this)" data-en="Drinks" data-ka="სასმელები">Drinks</button>
+        <button class="menu-tab" onclick="showTab('food',this)" data-en="Food" data-ka="საჭმელი">Food</button>
+        <button class="menu-tab" onclick="showTab('cocktails',this)" data-en="Cocktails" data-ka="კოქტეილები">Cocktails</button>
+      </div>
+    </div>
+
+    <!-- COFFEE -->
+    <div id="tab-coffee" class="menu-panel active">
+      <div class="menu-grid">
+        <div class="menu-item" onclick="openModal('espresso')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M20 40 Q20 65 45 65 Q70 65 70 40 Z" fill="#2c1a0e"/><rect x="20" y="36" width="50" height="8" rx="3" fill="#1a0f07"/><ellipse cx="45" cy="36" rx="25" ry="6" fill="#3d2518"/><ellipse cx="45" cy="36" rx="20" ry="4" fill="#5c3d2e"/><path d="M70 45 Q80 45 80 52 Q80 59 70 59" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="36" rx="12" ry="2.5" fill="#c4874a" opacity=".6"/><rect x="28" y="60" width="34" height="5" rx="1" fill="#f5efe6"/></svg></div>
+          <div class="item-name" data-en="Espresso" data-ka="ესპრესო">Espresso</div>
+          <div class="item-desc" data-en="Classic single shot, rich golden crema, intense aroma" data-ka="კლასიკური ერთი ჩასხმა, მდიდარი ოქროსფერი კრემა">Classic single shot, rich golden crema, intense aroma</div>
+          <div class="item-price">₾ 4</div>
+        </div>
+        <div class="menu-item" onclick="openModal('cappuccino')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M18 38 Q18 65 45 65 Q72 65 72 38 Z" fill="#2c1a0e"/><rect x="18" y="34" width="54" height="8" rx="3" fill="#1a0f07"/><ellipse cx="45" cy="34" rx="27" ry="7" fill="#f5efe6"/><ellipse cx="45" cy="34" rx="20" ry="5" fill="#f0e6d8"/><path d="M35 33 Q45 28 55 33" stroke="#c4874a" stroke-width="1.5" fill="none" opacity=".5"/><path d="M38 36 Q45 31 52 36" stroke="#c4874a" stroke-width="1" fill="none" opacity=".4"/><path d="M72 45 Q82 45 82 53 Q82 61 72 61" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="item-name" data-en="Cappuccino" data-ka="კაპუჩინო">Cappuccino</div>
+          <div class="item-desc" data-en="Espresso, steamed milk and silky microfoam" data-ka="ესპრესო, ორთქლზე მოხარშული რძე და ნაზი ქაფი">Espresso, steamed milk and silky microfoam</div>
+          <div class="item-price">₾ 7</div>
+        </div>
+        <div class="menu-item" onclick="openModal('latte')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><rect x="25" y="30" width="40" height="40" rx="3" fill="#2c1a0e"/><rect x="23" y="27" width="44" height="6" rx="2" fill="#1a0f07"/><rect x="25" y="30" width="40" height="15" rx="0" fill="#f5efe6" opacity=".9"/><ellipse cx="45" cy="37" rx="16" ry="4" fill="#f0e6d8"/><path d="M45 33 L45 41" stroke="#c4874a" stroke-width="1" opacity=".6"/><path d="M40 35 Q45 33 50 35" stroke="#c4874a" stroke-width=".8" fill="none" opacity=".5"/><path d="M38 38 Q45 35 52 38" stroke="#c4874a" stroke-width=".8" fill="none" opacity=".5"/><rect x="65" y="42" width="10" height="18" rx="5" fill="#2c1a0e" stroke="#c4874a" stroke-width="1.5"/></svg></div>
+          <div class="item-name" data-en="Latte" data-ka="ლატე">Latte</div>
+          <div class="item-desc" data-en="Smooth espresso with creamy steamed milk and latte art" data-ka="რბილი ესპრესო კრემოვანი რძით და ლატე ართით">Smooth espresso with creamy steamed milk and latte art</div>
+          <div class="item-price">₾ 8</div>
+        </div>
+        <div class="menu-item" onclick="openModal('americano')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M22 35 L28 68 Q28 70 45 70 Q62 70 62 68 L68 35 Z" fill="#2c1a0e"/><rect x="20" y="31" width="50" height="7" rx="3" fill="#1a0f07"/><ellipse cx="45" cy="31" rx="25" ry="5" fill="#3d2518"/><ellipse cx="45" cy="31" rx="18" ry="3.5" fill="#1a4a6b" opacity=".8"/><path d="M62 48 Q72 48 72 55 Q72 62 62 62" stroke="#c4874a" stroke-width="3" fill="none"/></svg></div>
+          <div class="item-name" data-en="Americano" data-ka="ამერიკანო">Americano</div>
+          <div class="item-desc" data-en="Espresso topped with hot water for a long, smooth coffee" data-ka="ესპრესო ცხელ წყალთან ერთად გრძელი, რბილი ყავისთვის">Espresso topped with hot water for a long, smooth coffee</div>
+          <div class="item-price">₾ 6</div>
+        </div>
+        <div class="menu-item" onclick="openModal('flatwhite')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M22 40 Q22 65 45 65 Q68 65 68 40 Z" fill="#2c1a0e"/><rect x="22" y="36" width="46" height="7" rx="3" fill="#f5efe6"/><ellipse cx="45" cy="37" rx="18" ry="4" fill="#f0e6d8"/><path d="M37 36 C40 32 50 32 53 36" stroke="#c4874a" stroke-width="1" fill="rgba(196,135,74,.2)"/><path d="M68 50 Q78 50 78 57 Q78 64 68 64" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="item-name" data-en="Flat White" data-ka="ფლეტ უაიტი">Flat White</div>
+          <div class="item-desc" data-en="Double ristretto with silky microfoam — bold and smooth" data-ka="ორმაგი რისტრეტო ნაზი ქაფით — ძლიერი და რბილი">Double ristretto with silky microfoam — bold and smooth</div>
+          <div class="item-price">₾ 8</div>
+        </div>
+        <div class="menu-item" onclick="openModal('turkish')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M33 50 Q30 65 35 68 Q45 72 55 68 Q60 65 57 50 Z" fill="#c4874a"/><path d="M33 50 Q33 42 45 40 Q57 42 57 50 Z" fill="#d4a05a"/><ellipse cx="45" cy="40" rx="12" ry="4" fill="#c4874a"/><ellipse cx="45" cy="40" rx="9" ry="2.5" fill="#1a0f07"/><path d="M57 52 Q70 52 70 45 Q70 38 63 38 L57 40" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M40 36 Q42 28 40 20" stroke="rgba(245,239,230,.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M50 36 Q52 28 50 20" stroke="rgba(245,239,230,.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="item-name" data-en="Turkish Coffee" data-ka="თურქული ყავა">Turkish Coffee</div>
+          <div class="item-desc" data-en="Finely ground, traditionally brewed in a copper cezve" data-ka="წვრილად დაფქული, ტრადიციულად სპილენძის ჯეზვეში">Finely ground, traditionally brewed in a copper cezve</div>
+          <div class="item-price">₾ 5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div id="tab-drinks" class="menu-panel">
+      <div class="menu-grid">
+        <div class="menu-item" onclick="openModal('lemonade')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M28 32 L32 70 Q32 72 45 72 Q58 72 58 70 L62 32 Z" fill="rgba(255,200,50,.3)" stroke="rgba(200,150,0,.4)" stroke-width="1"/><circle cx="45" cy="50" r="14" fill="rgba(255,220,50,.4)"/><circle cx="45" cy="50" r="10" fill="rgba(255,230,80,.5)"/><line x1="45" y1="40" x2="45" y2="60" stroke="rgba(200,150,0,.3)" stroke-width=".8"/><line x1="35" y1="50" x2="55" y2="50" stroke="rgba(200,150,0,.3)" stroke-width=".8"/><rect x="54" y="22" width="4" height="36" rx="2" fill="#c4874a" opacity=".8"/><rect x="26" y="28" width="38" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Fresh Lemonade" data-ka="ახალი ლიმონათი">Fresh Lemonade</div>
+          <div class="item-desc" data-en="Freshly squeezed lemon, mint, honey, sparkling water" data-ka="ახლად გაწუწული ლიმონი, პიტნა, თაფლი, გაზიანი წყალი">Freshly squeezed lemon, mint, honey, sparkling water</div>
+          <div class="item-price">₾ 9</div>
+        </div>
+        <div class="menu-item" onclick="openModal('iced-latte')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M30 30 L33 70 Q33 72 45 72 Q57 72 57 70 L60 30 Z" fill="rgba(200,160,100,.25)" stroke="rgba(150,100,50,.3)" stroke-width="1"/><path d="M30 50 L33 70 Q33 72 45 72 Q57 72 57 70 L60 50 Z" fill="rgba(100,60,30,.5)"/><path d="M30 45 L60 45" stroke="rgba(200,160,100,.4)" stroke-width="1"/><path d="M30 30 L30 45 L60 45 L60 30" fill="rgba(245,239,230,.6)"/><rect x="35" y="52" width="8" height="7" rx="1.5" fill="rgba(210,240,255,.7)" transform="rotate(10,39,55)"/><rect x="47" y="55" width="7" height="6" rx="1.5" fill="rgba(210,240,255,.7)" transform="rotate(-8,51,58)"/><rect x="52" y="18" width="3.5" height="40" rx="1.5" fill="#5c3d2e" opacity=".8"/><rect x="28" y="26" width="38" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Iced Latte" data-ka="გაყინული ლატე">Iced Latte</div>
+          <div class="item-desc" data-en="Double espresso over ice with chilled milk" data-ka="ორმაგი ესპრესო ყინულზე გაციებული რძით">Double espresso over ice with chilled milk</div>
+          <div class="item-price">₾ 9</div>
+        </div>
+        <div class="menu-item" onclick="openModal('smoothie')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M26 28 L32 70 Q32 72 45 72 Q58 72 58 70 L64 28 Z" fill="rgba(220,80,100,.35)" stroke="rgba(180,50,70,.4)" stroke-width="1"/><path d="M30 45 L32 70 Q32 72 45 72 Q58 72 58 70 L60 45 Z" fill="rgba(160,40,80,.5)"/><circle cx="38" cy="36" r="5" fill="rgba(200,50,80,.7)"/><circle cx="52" cy="34" r="4" fill="rgba(150,30,60,.7)"/><circle cx="45" cy="32" r="6" fill="rgba(220,60,90,.7)"/><path d="M45 26 Q48 22 52 24 Q50 28 45 26 Z" fill="rgba(60,150,60,.8)"/><rect x="55" y="18" width="4" height="38" rx="2" fill="#c4874a" opacity=".9"/><rect x="24" y="24" width="42" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Berry Smoothie" data-ka="კენკრის სმუზი">Berry Smoothie</div>
+          <div class="item-desc" data-en="Mixed berries, yogurt, honey, fresh mint" data-ka="შერეული კენკრა, იოგურტი, თაფლი, ახალი პიტნა">Mixed berries, yogurt, honey, fresh mint</div>
+          <div class="item-price">₾ 11</div>
+        </div>
+        <div class="menu-item" onclick="openModal('juice')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M28 30 L32 70 Q32 72 45 72 Q58 72 58 70 L62 30 Z" fill="rgba(255,130,30,.35)" stroke="rgba(200,90,10,.4)" stroke-width="1"/><circle cx="45" cy="52" r="16" fill="rgba(255,160,30,.5)"/><circle cx="45" cy="52" r="12" fill="rgba(255,180,60,.6)"/><line x1="45" y1="40" x2="45" y2="64" stroke="rgba(200,100,20,.4)" stroke-width="1"/><line x1="33" y1="52" x2="57" y2="52" stroke="rgba(200,100,20,.4)" stroke-width="1"/><line x1="37" y1="44" x2="53" y2="60" stroke="rgba(200,100,20,.3)" stroke-width="1"/><line x1="53" y1="44" x2="37" y2="60" stroke="rgba(200,100,20,.3)" stroke-width="1"/><rect x="26" y="26" width="38" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Fresh Orange Juice" data-ka="ახალი ფორთოხლის წვენი">Fresh Orange Juice</div>
+          <div class="item-desc" data-en="Freshly squeezed seasonal oranges, no sugar added" data-ka="ახლად გამოწურული სეზონური ფორთოხლები, დამატებული შაქრის გარეშე">Freshly squeezed seasonal oranges, no sugar added</div>
+          <div class="item-price">₾ 8</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOD -->
+    <div id="tab-food" class="menu-panel">
+      <div class="menu-grid">
+        <div class="menu-item" onclick="openModal('bruschetta')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><rect x="20" y="40" width="32" height="22" rx="3" fill="#c4874a" transform="rotate(-8,36,51)"/><rect x="21" y="41" width="30" height="20" rx="2" fill="#d4a05a" transform="rotate(-8,36,51)"/><circle cx="28" cy="47" r="4" fill="rgba(200,50,50,.8)"/><circle cx="36" cy="45" r="3" fill="rgba(200,50,50,.7)"/><circle cx="32" cy="53" r="3.5" fill="rgba(200,50,50,.8)"/><path d="M26 44 Q29 40 32 44 Q29 46 26 44 Z" fill="rgba(60,130,60,.9)"/><rect x="38" y="38" width="32" height="22" rx="3" fill="#c4874a" transform="rotate(6,54,49)"/><rect x="39" y="39" width="30" height="20" rx="2" fill="#d4a05a" transform="rotate(6,54,49)"/><circle cx="52" cy="45" r="4" fill="rgba(200,50,50,.8)"/></svg></div>
+          <div class="item-name" data-en="Bruschetta" data-ka="ბრუსკეტა">Bruschetta</div>
+          <div class="item-desc" data-en="Grilled sourdough, vine tomatoes, basil, extra-virgin olive oil" data-ka="გამომწვარი პური, პომიდორი, რეჰანი, ზეითუნის ზეთი">Grilled sourdough, vine tomatoes, basil, extra-virgin olive oil</div>
+          <div class="item-price">₾ 12</div>
+        </div>
+        <div class="menu-item" onclick="openModal('croissant')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M15 55 Q20 35 35 40 Q45 44 55 40 Q70 35 75 55 Q65 62 55 55 Q45 50 35 55 Q25 62 15 55 Z" fill="#d4a05a"/><path d="M20 52 Q25 38 35 42 Q45 46 55 42 Q65 38 70 52 Q60 58 55 52 Q45 48 35 52 Q30 58 20 52 Z" fill="#c4874a"/><path d="M25 50 Q30 44 40 47 Q45 49 50 47 Q60 44 65 50" stroke="#e8b870" stroke-width="1.5" fill="none" opacity=".7"/><path d="M28 53 Q33 47 42 50 Q45 51 48 50 Q57 47 62 53" stroke="#e8b870" stroke-width="1" fill="none" opacity=".5"/></svg></div>
+          <div class="item-name" data-en="Butter Croissant" data-ka="კარაქის კრუასანი">Butter Croissant</div>
+          <div class="item-desc" data-en="Golden, flaky, baked fresh every morning" data-ka="ოქროსფერი, ფხვიერი, ყოველ დილას ახლად გამომცხვარი">Golden, flaky, baked fresh every morning</div>
+          <div class="item-price">₾ 7</div>
+        </div>
+        <div class="menu-item" onclick="openModal('pasta')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M15 50 Q15 72 45 72 Q75 72 75 50 Z" fill="#e8ddd0"/><ellipse cx="45" cy="50" rx="30" ry="9" fill="#d4c4b0"/><ellipse cx="45" cy="50" rx="26" ry="7" fill="#c4b09a"/><path d="M30 50 Q35 44 40 50 Q45 56 50 50 Q55 44 60 50" stroke="#d4a05a" stroke-width="2.5" fill="none"/><path d="M32 53 Q37 47 42 53 Q47 59 52 53 Q57 47 62 53" stroke="#c4874a" stroke-width="2" fill="none"/><circle cx="40" cy="49" r="5" fill="rgba(180,50,30,.6)"/><path d="M44 45 Q47 41 50 45 Q47 47 44 45 Z" fill="rgba(60,130,60,.9)"/></svg></div>
+          <div class="item-name" data-en="Pasta Pomodoro" data-ka="პასტა პომოდორო">Pasta Pomodoro</div>
+          <div class="item-desc" data-en="Fresh hand-made pasta, San Marzano tomatoes, Parmigiano" data-ka="ახალი ხელნაკეთი პასტა, სან მარძანოს პომიდვრები, პარმეზანი">Fresh hand-made pasta, San Marzano tomatoes, Parmigiano</div>
+          <div class="item-price">₾ 18</div>
+        </div>
+        <div class="menu-item" onclick="openModal('tiramisu')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><rect x="22" y="44" width="46" height="28" rx="3" fill="#5c3d2e"/><rect x="22" y="44" width="46" height="8" rx="3" fill="#f5efe6"/><rect x="22" y="57" width="46" height="7" fill="#f0e6d8"/><rect x="22" y="44" width="46" height="4" rx="3" fill="#3d2518" opacity=".7"/><ellipse cx="45" cy="72" rx="30" ry="6" fill="#e8ddd0"/><ellipse cx="45" cy="72" rx="24" ry="4" fill="#f0e6d8"/></svg></div>
+          <div class="item-name" data-en="Tiramisù" data-ka="ტირამისუ">Tiramisù</div>
+          <div class="item-desc" data-en="Mascarpone, espresso-soaked savoiardi, fine cocoa dust" data-ka="მასკარპონე, ესპრესოში გაჟღენთილი საბოიარდი, კაკაოს ფხვნილი">Mascarpone, espresso-soaked savoiardi, fine cocoa dust</div>
+          <div class="item-price">₾ 14</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COCKTAILS -->
+    <div id="tab-cocktails" class="menu-panel">
+      <div class="menu-grid">
+        <div class="menu-item" onclick="openModal('espresso-martini')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><line x1="45" y1="60" x2="45" y2="72" stroke="#c4874a" stroke-width="2"/><line x1="35" y1="72" x2="55" y2="72" stroke="#c4874a" stroke-width="2"/><path d="M20 28 L35 60 L55 60 L70 28 Z" fill="rgba(196,135,74,.15)" stroke="rgba(196,135,74,.5)" stroke-width="1.5"/><path d="M25 34 L36 60 L54 60 L65 34 Z" fill="rgba(44,26,14,.85)"/><ellipse cx="45" cy="35" rx="17" ry="3" fill="rgba(196,135,74,.3)"/><ellipse cx="39" cy="34" rx="3" ry="5" fill="rgba(92,61,46,.8)" transform="rotate(25,39,34)"/><ellipse cx="45" cy="33" rx="3" ry="5" fill="rgba(92,61,46,.8)"/><ellipse cx="51" cy="34" rx="3" ry="5" fill="rgba(92,61,46,.8)" transform="rotate(-25,51,34)"/></svg></div>
+          <div class="item-name" data-en="Espresso Martini" data-ka="ესპრესო მარტინი">Espresso Martini</div>
+          <div class="item-desc" data-en="Vodka, Kahlúa, fresh espresso, three coffee beans" data-ka="ვოდკა, კალუა, ახალი ესპრესო, სამი ყავის მარცვალი">Vodka, Kahlúa, fresh espresso, three coffee beans</div>
+          <div class="item-price">₾ 22</div>
+        </div>
+        <div class="menu-item" onclick="openModal('aperol')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M28 28 L32 68 Q32 70 45 70 Q58 70 58 68 L62 28 Z" fill="rgba(255,100,30,.25)" stroke="rgba(200,80,20,.4)" stroke-width="1.5"/><path d="M30 40 L32 68 Q32 70 45 70 Q58 70 58 68 L60 40 Z" fill="rgba(255,100,20,.6)"/><circle cx="57" cy="35" r="10" fill="rgba(255,160,30,.5)" stroke="rgba(200,100,10,.4)" stroke-width="1"/><circle cx="57" cy="35" r="7" fill="rgba(255,180,60,.6)"/><line x1="57" y1="28" x2="57" y2="42" stroke="rgba(200,100,10,.4)" stroke-width=".8"/><line x1="50" y1="35" x2="64" y2="35" stroke="rgba(200,100,10,.4)" stroke-width=".8"/><rect x="33" y="55" width="8" height="6" rx="1" fill="rgba(210,240,255,.6)" transform="rotate(10,37,58)"/><rect x="26" y="24" width="38" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Aperol Spritz" data-ka="აპეროლ სპრიცი">Aperol Spritz</div>
+          <div class="item-desc" data-en="Aperol, Prosecco, soda water, fresh orange slice" data-ka="აპეროლი, პროსეკო, სოდა წყალი, ახალი ფორთოხალი">Aperol, Prosecco, soda water, fresh orange slice</div>
+          <div class="item-price">₾ 18</div>
+        </div>
+        <div class="menu-item" onclick="openModal('negroni')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M24 38 L26 70 Q26 72 45 72 Q64 72 64 70 L66 38 Z" fill="rgba(180,40,40,.2)" stroke="rgba(140,30,30,.4)" stroke-width="1.5"/><path d="M25 50 L26 70 Q26 72 45 72 Q64 72 64 70 L65 50 Z" fill="rgba(180,40,40,.65)"/><rect x="33" y="52" width="14" height="13" rx="2" fill="rgba(200,235,255,.55)" stroke="rgba(180,220,255,.4)" stroke-width="1"/><rect x="48" y="55" width="12" height="10" rx="2" fill="rgba(200,235,255,.5)" stroke="rgba(180,220,255,.4)" stroke-width="1"/><path d="M60 42 Q66 38 68 44 Q64 48 60 42 Z" fill="rgba(255,160,30,.8)"/><rect x="22" y="34" width="46" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Negroni" data-ka="ნეგრონი">Negroni</div>
+          <div class="item-desc" data-en="Gin, sweet vermouth, Campari, orange peel garnish" data-ka="ჯინი, ტკბილი ვერმუტი, კამპარი, ფორთოხლის კანი">Gin, sweet vermouth, Campari, orange peel garnish</div>
+          <div class="item-price">₾ 20</div>
+        </div>
+        <div class="menu-item" onclick="openModal('mojito')">
+          <div class="item-vis"><svg class="item-3d" width="88" height="88" viewBox="0 0 90 90"><path d="M28 25 L30 70 Q30 72 45 72 Q60 72 60 70 L62 25 Z" fill="rgba(100,200,100,.15)" stroke="rgba(60,150,60,.35)" stroke-width="1.5"/><path d="M29 40 L30 70 Q30 72 45 72 Q60 72 60 70 L61 40 Z" fill="rgba(80,170,80,.4)"/><path d="M33 45 Q37 40 42 45 Q37 48 33 45 Z" fill="rgba(60,160,60,.8)"/><path d="M38 42 Q42 37 47 42 Q42 45 38 42 Z" fill="rgba(80,180,80,.8)"/><path d="M44 45 Q48 40 53 45 Q48 48 44 45 Z" fill="rgba(60,160,60,.8)"/><rect x="31" y="56" width="9" height="8" rx="1.5" fill="rgba(210,240,255,.6)" transform="rotate(-5,35,60)"/><rect x="52" y="18" width="3.5" height="40" rx="1.5" fill="#5c3d2e" opacity=".9"/><rect x="26" y="21" width="38" height="7" rx="3" fill="rgba(200,180,150,.4)"/></svg></div>
+          <div class="item-name" data-en="Mojito" data-ka="მოჯიტო">Mojito</div>
+          <div class="item-desc" data-en="Rum, fresh lime, mint, sugar, sparkling water over ice" data-ka="რომი, ახალი ლაიმი, პიტნა, შაქარი, გაზიანი წყალი ყინულზე">Rum, fresh lime, mint, sugar, sparkling water over ice</div>
+          <div class="item-price">₾ 18</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-header fade-in">
+      <p class="sec-eye" data-en="Get In Touch" data-ka="დაგვიკავშირდით">Get In Touch</p>
+      <h2 class="sec-title" data-en="Contact Us" data-ka="დაგვიკავშირდით">Contact Us</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="contact-grid fade-in">
+      <div class="contact-list">
+        <div class="c-item">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-label" data-en="Phone" data-ka="ტელეფონი">Phone</div>
+            <div class="c-value"><a href="tel:+995591008190">+995 591 00 81 90</a></div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label" data-en="Location" data-ka="მდებარეობა">Location</div>
+            <div class="c-value" data-en="Vekua Street, Tbilisi, Georgia" data-ka="ვეკუას ქუჩა, თბილისი, საქართველო">Vekua Street, Tbilisi, Georgia</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🕐</div>
+          <div>
+            <div class="c-label" data-en="Hours" data-ka="სამუშაო საათები">Hours</div>
+            <div class="c-value">
+              <span data-en="Mon – Fri: 8:00 – 22:00" data-ka="ორშ – პარ: 8:00 – 22:00">Mon – Fri: 8:00 – 22:00</span><br/>
+              <span data-en="Sat – Sun: 9:00 – 23:00" data-ka="შაბ – კვი: 9:00 – 23:00">Sat – Sun: 9:00 – 23:00</span>
+            </div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div>
+          <div>
+            <div class="c-label">Facebook</div>
+            <div class="c-value"><a href="https://www.facebook.com/espressocafeandshop?locale=ka_GE" target="_blank" rel="noopener">Espresso Cafe & Shop</a></div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" style="fill:#2c1a0e"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#2c1a0e" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div>
+            <div class="c-label">Instagram</div>
+            <div class="c-value"><a href="https://www.instagram.com/milanesebistrovekua/" target="_blank" rel="noopener">@milanesebistrovekua</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 data-en="Send a Message" data-ka="მოგვწერეთ">Send a Message</h3>
+        <div class="fg">
+          <label data-en="Your Name" data-ka="თქვენი სახელი">Your Name</label>
+          <input type="text" placeholder="—"/>
+        </div>
+        <div class="fg">
+          <label data-en="Phone or Email" data-ka="ტელეფონი ან ელ-ფოსტა">Phone or Email</label>
+          <input type="text" placeholder="—"/>
+        </div>
+        <div class="fg">
+          <label data-en="Message" data-ka="შეტყობინება">Message</label>
+          <textarea placeholder="—"></textarea>
+        </div>
+        <button class="btn-primary" onclick="handleSend(event)" style="width:100%">
+          <span data-en="Send Message" data-ka="გაგზავნა">Send Message</span>
+        </button>
+        <p id="form-success" style="display:none;color:var(--caramel);margin-top:14px;font-size:.9rem;text-align:center;"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Espresso Cafe & Shop</div>
+  <div class="foot-tag" data-en="Milanese Bistro Vekua · Tbilisi, Georgia" data-ka="მილანური ბისტრო ვეკუა · თბილისი, საქართველო">Milanese Bistro Vekua · Tbilisi, Georgia</div>
+  <div class="foot-soc">
+    <a href="https://www.facebook.com/espressocafeandshop?locale=ka_GE" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/milanesebistrovekua/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" style="fill:#2c1a0e"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#2c1a0e" stroke-width="2" stroke-linecap="round"/></svg>
+    </a>
+  </div>
+  <div class="foot-copy">© 2024 Espresso Cafe & Shop · +995 591 00 81 90</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-vis" id="modal-vis"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="modal-price" id="modal-price"></div>
+  </div>
+</div>
+
+<script>
+let lang = 'en';
+
+const items = {
+  espresso:{en:{name:'Espresso',desc:'A perfectly extracted single shot with a thick golden crema. Bold, intense, and deeply aromatic — the soul of Italian coffee culture.',price:'₾ 4'},ka:{name:'ესპრესო',desc:'სრულყოფილად ამოძრავებული ერთი ჩასხმა სქელი ოქროსფერი კრემით. ძლიერი, ინტენსიური — იტალიური ყავის კულტურის სული.',price:'₾ 4'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M20 40 Q20 65 45 65 Q70 65 70 40 Z" fill="#2c1a0e"/><rect x="20" y="36" width="50" height="8" rx="3" fill="#1a0f07"/><ellipse cx="45" cy="36" rx="25" ry="6" fill="#3d2518"/><ellipse cx="45" cy="36" rx="20" ry="4" fill="#5c3d2e"/><path d="M70 45 Q80 45 80 52 Q80 59 70 59" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="45" cy="36" rx="12" ry="2.5" fill="#c4874a" opacity=".6"/><rect x="28" y="60" width="34" height="5" rx="1" fill="#f5efe6"/></svg>'},
+  cappuccino:{en:{name:'Cappuccino',desc:'Equal parts espresso, steamed milk, and silky microfoam. The classic Italian morning ritual crafted with care and delicate latte art.',price:'₾ 7'},ka:{name:'კაპუჩინო',desc:'ესპრესო, ორთქლზე მოხარშული რძე და ნაზი ქაფი — კლასიკური იტალიური დილის რიტუალი ნაზი ლატე ართით.',price:'₾ 7'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M18 38 Q18 65 45 65 Q72 65 72 38 Z" fill="#2c1a0e"/><rect x="18" y="34" width="54" height="8" rx="3" fill="#1a0f07"/><ellipse cx="45" cy="34" rx="27" ry="7" fill="#f5efe6"/><ellipse cx="45" cy="34" rx="20" ry="5" fill="#f0e6d8"/><path d="M35 33 Q45 28 55 33" stroke="#c4874a" stroke-width="1.5" fill="none" opacity=".5"/><path d="M72 45 Q82 45 82 53 Q82 61 72 61" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'},
+  latte:{en:{name:'Latte',desc:'Rich espresso softened by a generous pour of creamy steamed milk. Topped with intricate latte art and a light layer of silky foam.',price:'₾ 8'},ka:{name:'ლატე',desc:'მდიდარი ესპრესო კრემოვანი ორთქლზე მოხარშული რძით, ნაზი ლატე ართით.',price:'₾ 8'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><rect x="25" y="30" width="40" height="40" rx="3" fill="#2c1a0e"/><rect x="23" y="27" width="44" height="6" rx="2" fill="#1a0f07"/><rect x="25" y="30" width="40" height="15" fill="#f5efe6" opacity=".9"/><ellipse cx="45" cy="37" rx="16" ry="4" fill="#f0e6d8"/><path d="M45 33 L45 41" stroke="#c4874a" stroke-width="1" opacity=".6"/><rect x="65" y="42" width="10" height="18" rx="5" fill="#2c1a0e" stroke="#c4874a" stroke-width="1.5"/></svg>'},
+  americano:{en:{name:'Americano',desc:'Espresso shots diluted with hot water, producing a milder intensity while preserving the full depth and complexity of the coffee.',price:'₾ 6'},ka:{name:'ამერიკანო',desc:'ესპრესო ცხელი წყლით განზავებული — ნაკლები ინტენსივობით, მაგრამ ყავის სრული სიღრმით.',price:'₾ 6'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M22 35 L28 68 Q28 70 45 70 Q62 70 62 68 L68 35 Z" fill="#2c1a0e"/><rect x="20" y="31" width="50" height="7" rx="3" fill="#1a0f07"/><ellipse cx="45" cy="31" rx="25" ry="5" fill="#3d2518"/><ellipse cx="45" cy="31" rx="18" ry="3.5" fill="#1a4a6b" opacity=".8"/><path d="M62 48 Q72 48 72 55 Q72 62 62 62" stroke="#c4874a" stroke-width="3" fill="none"/></svg>'},
+  flatwhite:{en:{name:'Flat White',desc:'Two ristretto shots with a small amount of silky microfoam. Stronger than a latte, smaller than a cappuccino — the coffee lover\'s choice.',price:'₾ 8'},ka:{name:'ფლეტ უაიტი',desc:'ორი რისტრეტო ნაზი მიკროქაფით. ლატეზე ძლიერი, კაპუჩინოზე პატარა — ყავის მოყვარულის არჩევანი.',price:'₾ 8'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M22 40 Q22 65 45 65 Q68 65 68 40 Z" fill="#2c1a0e"/><rect x="22" y="36" width="46" height="7" rx="3" fill="#f5efe6"/><ellipse cx="45" cy="37" rx="18" ry="4" fill="#f0e6d8"/><path d="M37 36 C40 32 50 32 53 36" stroke="#c4874a" stroke-width="1" fill="rgba(196,135,74,.2)"/><path d="M68 50 Q78 50 78 57 Q78 64 68 64" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'},
+  turkish:{en:{name:'Turkish Coffee',desc:'Finely ground coffee simmered in a traditional copper cezve. Strong, unfiltered, and served with a glass of cold water.',price:'₾ 5'},ka:{name:'თურქული ყავა',desc:'წვრილად დაფქული ყავა ტრადიციულ სპილენძის ჯეზვეში. ძლიერი, გაუფილტრავი, ცივი წყლის ჭიქასთან ერთად.',price:'₾ 5'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M33 50 Q30 65 35 68 Q45 72 55 68 Q60 65 57 50 Z" fill="#c4874a"/><path d="M33 50 Q33 42 45 40 Q57 42 57 50 Z" fill="#d4a05a"/><ellipse cx="45" cy="40" rx="12" ry="4" fill="#c4874a"/><ellipse cx="45" cy="40" rx="9" ry="2.5" fill="#1a0f07"/><path d="M57 52 Q70 52 70 45 Q70 38 63 38 L57 40" stroke="#c4874a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M40 36 Q42 28 40 20" stroke="rgba(245,239,230,.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M50 36 Q52 28 50 20" stroke="rgba(245,239,230,.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>'},
+  lemonade:{en:{name:'Fresh Lemonade',desc:'Hand-squeezed lemons, fresh mint, a touch of honey and sparkling water. Refreshing and vibrant, made to order.',price:'₾ 9'},ka:{name:'ახალი ლიმონათი',desc:'ხელით გაწუწული ლიმონი, ახალი პიტნა, თაფლი და გაზიანი წყალი. გამაახლებელი, ნათელი, შეკვეთაზე.',price:'₾ 9'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M28 32 L32 70 Q32 72 45 72 Q58 72 58 70 L62 32 Z" fill="rgba(255,200,50,.3)"/><circle cx="45" cy="50" r="14" fill="rgba(255,220,50,.4)"/><circle cx="45" cy="50" r="10" fill="rgba(255,230,80,.5)"/><line x1="45" y1="40" x2="45" y2="60" stroke="rgba(200,150,0,.3)" stroke-width=".8"/><line x1="35" y1="50" x2="55" y2="50" stroke="rgba(200,150,0,.3)" stroke-width=".8"/><rect x="54" y="22" width="4" height="36" rx="2" fill="#c4874a" opacity=".8"/></svg>'},
+  'iced-latte':{en:{name:'Iced Latte',desc:'Double espresso poured over ice with cold milk. The perfect pick-me-up for warm Tbilisi afternoons.',price:'₾ 9'},ka:{name:'გაყინული ლატე',desc:'ორმაგი ესპრესო ყინულზე ცივი რძით. სრულყოფილი გამაჯანსაღებელი თბილი შუადღეებისთვის.',price:'₾ 9'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M30 30 L33 70 Q33 72 45 72 Q57 72 57 70 L60 30 Z" fill="rgba(200,160,100,.25)"/><path d="M30 50 L33 70 Q33 72 45 72 Q57 72 57 70 L60 50 Z" fill="rgba(100,60,30,.5)"/><path d="M30 30 L30 45 L60 45 L60 30" fill="rgba(245,239,230,.6)"/><rect x="35" y="52" width="8" height="7" rx="1.5" fill="rgba(210,240,255,.7)" transform="rotate(10,39,55)"/><rect x="52" y="18" width="3.5" height="40" rx="1.5" fill="#5c3d2e" opacity=".8"/></svg>'},
+  smoothie:{en:{name:'Berry Smoothie',desc:'A vibrant blend of seasonal mixed berries, creamy yogurt, raw honey and fresh mint. Wholesome and delicious.',price:'₾ 11'},ka:{name:'კენკრის სმუზი',desc:'სეზონური კენკრის, კრემოვანი იოგურტის, ნედლი თაფლისა და ახალი პიტნის ნათელი ნაზავი.',price:'₾ 11'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M26 28 L32 70 Q32 72 45 72 Q58 72 58 70 L64 28 Z" fill="rgba(220,80,100,.35)"/><path d="M30 45 L32 70 Q32 72 45 72 Q58 72 58 70 L60 45 Z" fill="rgba(160,40,80,.5)"/><circle cx="38" cy="36" r="5" fill="rgba(200,50,80,.7)"/><circle cx="52" cy="34" r="4" fill="rgba(150,30,60,.7)"/><circle cx="45" cy="32" r="6" fill="rgba(220,60,90,.7)"/><path d="M45 26 Q48 22 52 24 Q50 28 45 26 Z" fill="rgba(60,150,60,.8)"/><rect x="55" y="18" width="4" height="38" rx="2" fill="#c4874a" opacity=".9"/></svg>'},
+  juice:{en:{name:'Fresh Orange Juice',desc:'Freshly squeezed Valencia oranges. No sugar, no preservatives — just pure sunshine in a glass.',price:'₾ 8'},ka:{name:'ახალი ფორთოხლის წვენი',desc:'ახლად გამოწურული ვალენსიის ფორთოხლები. შაქარი, კონსერვანტები — მხოლოდ სუფთა ბუნება.',price:'₾ 8'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M28 30 L32 70 Q32 72 45 72 Q58 72 58 70 L62 30 Z" fill="rgba(255,130,30,.35)"/><circle cx="45" cy="52" r="16" fill="rgba(255,160,30,.5)"/><circle cx="45" cy="52" r="12" fill="rgba(255,180,60,.6)"/><line x1="45" y1="40" x2="45" y2="64" stroke="rgba(200,100,20,.4)" stroke-width="1"/><line x1="33" y1="52" x2="57" y2="52" stroke="rgba(200,100,20,.4)" stroke-width="1"/></svg>'},
+  bruschetta:{en:{name:'Bruschetta',desc:'Grilled sourdough rubbed with garlic, topped with diced vine tomatoes, fresh basil and extra-virgin olive oil.',price:'₾ 12'},ka:{name:'ბრუსკეტა',desc:'ნიორზე გახეხილი გამომწვარი პური, დაჭრილი პომიდვრით, ახალი რეჰანით და ზეითუნის ზეთის წვეთებით.',price:'₾ 12'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><rect x="20" y="40" width="32" height="22" rx="3" fill="#c4874a" transform="rotate(-8,36,51)"/><rect x="21" y="41" width="30" height="20" rx="2" fill="#d4a05a" transform="rotate(-8,36,51)"/><circle cx="28" cy="47" r="4" fill="rgba(200,50,50,.8)"/><path d="M26 44 Q29 40 32 44 Q29 46 26 44 Z" fill="rgba(60,130,60,.9)"/><rect x="38" y="38" width="32" height="22" rx="3" fill="#c4874a" transform="rotate(6,54,49)"/><rect x="39" y="39" width="30" height="20" rx="2" fill="#d4a05a" transform="rotate(6,54,49)"/><circle cx="52" cy="45" r="4" fill="rgba(200,50,50,.8)"/></svg>'},
+  croissant:{en:{name:'Butter Croissant',desc:'Baked fresh every morning. Layers of golden, flaky, buttery pastry — the perfect companion to your morning espresso.',price:'₾ 7'},ka:{name:'კარაქის კრუასანი',desc:'ყოველ დილას ახლად გამომცხვარი. ოქროსფერი, ფხვიერი, კარაქიანი ცომის ფენები.',price:'₾ 7'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M15 55 Q20 35 35 40 Q45 44 55 40 Q70 35 75 55 Q65 62 55 55 Q45 50 35 55 Q25 62 15 55 Z" fill="#d4a05a"/><path d="M20 52 Q25 38 35 42 Q45 46 55 42 Q65 38 70 52 Q60 58 55 52 Q45 48 35 52 Q30 58 20 52 Z" fill="#c4874a"/><path d="M25 50 Q30 44 40 47 Q45 49 50 47 Q60 44 65 50" stroke="#e8b870" stroke-width="1.5" fill="none" opacity=".7"/></svg>'},
+  pasta:{en:{name:'Pasta Pomodoro',desc:'Fresh hand-rolled pasta tossed in slow-cooked San Marzano tomato sauce, finished with Parmigiano-Reggiano and torn basil.',price:'₾ 18'},ka:{name:'პასტა პომოდორო',desc:'ახალი ხელნაკეთი პასტა, სან მარძანოს ნელ-ნელა მოხარშულ სოუსში, პარმეზანითა და რეჰანით.',price:'₾ 18'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M15 50 Q15 72 45 72 Q75 72 75 50 Z" fill="#e8ddd0"/><ellipse cx="45" cy="50" rx="30" ry="9" fill="#d4c4b0"/><ellipse cx="45" cy="50" rx="26" ry="7" fill="#c4b09a"/><path d="M30 50 Q35 44 40 50 Q45 56 50 50 Q55 44 60 50" stroke="#d4a05a" stroke-width="2.5" fill="none"/><circle cx="40" cy="49" r="5" fill="rgba(180,50,30,.6)"/><path d="M44 45 Q47 41 50 45 Q47 47 44 45 Z" fill="rgba(60,130,60,.9)"/></svg>'},
+  tiramisu:{en:{name:'Tiramisù',desc:'The timeless Italian classic — savoiardi soaked in espresso, layered with mascarpone cream and dusted with fine cocoa.',price:'₾ 14'},ka:{name:'ტირამისუ',desc:'უვადო იტალიური კლასიკა — ესპრესოში გაჟღენთილი საბოიარდი, მასკარპონეს კრემი და კაკაოს ფხვნილი.',price:'₾ 14'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><rect x="22" y="44" width="46" height="28" rx="3" fill="#5c3d2e"/><rect x="22" y="44" width="46" height="8" rx="3" fill="#f5efe6"/><rect x="22" y="57" width="46" height="7" fill="#f0e6d8"/><rect x="22" y="44" width="46" height="4" rx="3" fill="#3d2518" opacity=".7"/><ellipse cx="45" cy="72" rx="24" ry="4" fill="#f0e6d8"/></svg>'},
+  'espresso-martini':{en:{name:'Espresso Martini',desc:'Premium vodka shaken with fresh espresso and Kahlúa. Topped with three espresso beans. Silky, bold, unforgettable.',price:'₾ 22'},ka:{name:'ესპრესო მარტინი',desc:'პრემიუმ ვოდკა, ახალი ესპრესო და კალუა — სამი ყავის მარცვლით. ნაზი, ძლიერი, დაუვიწყარი.',price:'₾ 22'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><line x1="45" y1="60" x2="45" y2="72" stroke="#c4874a" stroke-width="2"/><line x1="35" y1="72" x2="55" y2="72" stroke="#c4874a" stroke-width="2"/><path d="M20 28 L35 60 L55 60 L70 28 Z" fill="rgba(196,135,74,.15)" stroke="rgba(196,135,74,.5)" stroke-width="1.5"/><path d="M25 34 L36 60 L54 60 L65 34 Z" fill="rgba(44,26,14,.85)"/><ellipse cx="45" cy="35" rx="17" ry="3" fill="rgba(196,135,74,.3)"/><ellipse cx="39" cy="34" rx="3" ry="5" fill="rgba(92,61,46,.8)" transform="rotate(25,39,34)"/><ellipse cx="45" cy="33" rx="3" ry="5" fill="rgba(92,61,46,.8)"/><ellipse cx="51" cy="34" rx="3" ry="5" fill="rgba(92,61,46,.8)" transform="rotate(-25,51,34)"/></svg>'},
+  aperol:{en:{name:'Aperol Spritz',desc:'The iconic Italian aperitivo — Aperol, Prosecco and soda garnished with a fresh orange slice. Light, bubbly, refreshing.',price:'₾ 18'},ka:{name:'აპეროლ სპრიცი',desc:'იკონური იტალიური აპერიტივო — აპეროლი, პროსეკო, სოდა და ახალი ფორთოხალი.',price:'₾ 18'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M28 28 L32 68 Q32 70 45 70 Q58 70 58 68 L62 28 Z" fill="rgba(255,100,30,.25)"/><path d="M30 40 L32 68 Q32 70 45 70 Q58 70 58 68 L60 40 Z" fill="rgba(255,100,20,.6)"/><circle cx="57" cy="35" r="10" fill="rgba(255,160,30,.5)"/><circle cx="57" cy="35" r="7" fill="rgba(255,180,60,.6)"/><line x1="57" y1="28" x2="57" y2="42" stroke="rgba(200,100,10,.4)" stroke-width=".8"/><line x1="50" y1="35" x2="64" y2="35" stroke="rgba(200,100,10,.4)" stroke-width=".8"/></svg>'},
+  negroni:{en:{name:'Negroni',desc:'Equal parts gin, sweet vermouth and Campari. Stirred, served over ice with a hand-cut orange peel.',price:'₾ 20'},ka:{name:'ნეგრონი',desc:'ჯინი, ტკბილი ვერმუტი და კამპარი თანაბარი პროპორციებით. ხელნაკეთი ფორთოხლის კანით.',price:'₾ 20'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M24 38 L26 70 Q26 72 45 72 Q64 72 64 70 L66 38 Z" fill="rgba(180,40,40,.2)"/><path d="M25 50 L26 70 Q26 72 45 72 Q64 72 64 70 L65 50 Z" fill="rgba(180,40,40,.65)"/><rect x="33" y="52" width="14" height="13" rx="2" fill="rgba(200,235,255,.55)"/><rect x="48" y="55" width="12" height="10" rx="2" fill="rgba(200,235,255,.5)"/><path d="M60 42 Q66 38 68 44 Q64 48 60 42 Z" fill="rgba(255,160,30,.8)"/></svg>'},
+  mojito:{en:{name:'Mojito',desc:'White rum muddled with fresh lime, sugar and fragrant mint. Topped with ice and sparkling water for ultimate refreshment.',price:'₾ 18'},ka:{name:'მოჯიტო',desc:'თეთრი რომი, ახალი ლაიმი, შაქარი და სურნელოვანი პიტნა — ყინულითა და გაზიანი წყლით.',price:'₾ 18'},svg:'<svg width="160" height="160" viewBox="0 0 90 90"><path d="M28 25 L30 70 Q30 72 45 72 Q60 72 60 70 L62 25 Z" fill="rgba(100,200,100,.15)"/><path d="M29 40 L30 70 Q30 72 45 72 Q60 72 60 70 L61 40 Z" fill="rgba(80,170,80,.4)"/><path d="M33 45 Q37 40 42 45 Q37 48 33 45 Z" fill="rgba(60,160,60,.8)"/><path d="M38 42 Q42 37 47 42 Q42 45 38 42 Z" fill="rgba(80,180,80,.8)"/><path d="M44 45 Q48 40 53 45 Q48 48 44 45 Z" fill="rgba(60,160,60,.8)"/><rect x="52" y="18" width="3.5" height="40" rx="1.5" fill="#5c3d2e" opacity=".9"/></svg>'}
+};
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(b=>{if((l==='en'&&b.textContent==='EN')||(l==='ka'&&b.textContent==='ქა'))b.classList.add('active');});
+  l==='ka'?document.body.classList.add('lang-ka'):document.body.classList.remove('lang-ka');
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const v=el.getAttribute('data-'+l);
+    if(v){if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=v;}else{el.innerHTML=v;}}
+  });
+}
+
+function showTab(tab,btn){
+  document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function openModal(id){
+  const it=items[id]; if(!it)return;
+  const d=it[lang]||it.en;
+  document.getElementById('modal-vis').innerHTML=it.svg;
+  document.getElementById('modal-title').textContent=d.name;
+  document.getElementById('modal-desc').textContent=d.desc;
+  document.getElementById('modal-price').textContent=d.price;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function closeModalOutside(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+function handleSend(e){
+  e.preventDefault();
+  const s=document.getElementById('form-success');
+  s.textContent=lang==='ka'?'✓ გმადლობთ! მალე დაგიკავშირდებით.':'✓ Thank you! We\'ll be in touch soon.';
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',4000);
+}
+</script>
+</body>
+</html>
